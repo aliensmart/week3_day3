@@ -29,12 +29,12 @@ class Account(ORM):
     def get_trades(self):
         """ return all Trades where account_pk == self.pk. 
         returns a list of Trade objects """
-        return []
+        return Trade.all_from_where_clause("WHERE account_pk=?", (self.pk,))
 
-    def get_trades_for(self, pk):
+    def get_trades_for(self, ticker):
         """ return all Trades where account_pk == self.pk. 
         returns a list of Trade objects """
-        return []
+        return Trade.all_from_where_clause("WHERE account_pk=? AND ticker=?", (self.pk, ticker))
 
     def buy(self, ticker, amount):
         """ if balance is greater than or equal to amount * current price, 
